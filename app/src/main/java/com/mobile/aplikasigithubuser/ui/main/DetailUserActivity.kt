@@ -101,7 +101,7 @@ class DetailUserActivity : AppCompatActivity() {
 
     private fun saveFavoriteUserToDatabase() {
         val username = intent.getStringExtra("username") ?: return
-        val avatarUrl = intent.getStringExtra("avatarUrl")
+        val avatarUrl = intent.getStringExtra("avatarUrl") ?: return
 
         val favoriteUser = FavoriteUser(username = username, avatarUrl = avatarUrl)
         favoriteUserAddUpdateViewModel.insert(favoriteUser)
