@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">AplikasiGithubUser</string>
+    <string name="username">username</string>
+    <string name="searchbar_hint">Masukkan kata kunci</string>
+    <string name="display_name">display name</string>
+    <string name="total_followers">x Followers</string>
+    <string name="total_following">x Following</string>
+    <string name="follower">Followers</string>
+    <string name="following">Following</string>
+    <string name="content_tab_follower">hello my followers</string>
+    <string name="content_tab_following">my following here</string>
+    <string name="content_tab_text">This is Tab %1$d</string>
+    <string name="get_follow">get follow</string>
+</resources>
