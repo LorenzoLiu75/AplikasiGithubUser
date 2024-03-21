@@ -2,16 +2,13 @@ package com.mobile.aplikasigithubuser.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.ContextMenu
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.AdapterView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mobile.aplikasigithubuser.R
 import com.mobile.aplikasigithubuser.databinding.ActivityMainBinding
@@ -43,6 +40,31 @@ class MainActivity : AppCompatActivity() {
                     }
                     false
                 }
+
+            searchBar.setOnMenuItemClickListener(object : MenuItem.OnMenuItemClickListener,
+                Toolbar.OnMenuItemClickListener {
+                override fun onMenuItemClick(item: MenuItem): Boolean {
+                    return when (item.itemId) {
+                        R.id.menu_favorite -> {
+                            startActivity(
+                                Intent(
+                                    this@MainActivity,
+                                    ListFavoriteActivity::class.java
+                                )
+                            )
+                            true
+                        }
+
+                        R.id.menu_setting -> {
+                            true
+                        }
+
+                        else -> {
+                            false
+                        }
+                    }
+                }
+            })
         }
 
         setupRecyclerView()
@@ -60,24 +82,6 @@ class MainActivity : AppCompatActivity() {
                 mainViewModel.setErrorText(null)
                 showErrorDialog(errorMessage)
             }
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.item_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.menu_favorite -> {
-                startActivity(Intent(this, ListFavoriteActivity::class.java))
-                true
-            }
-            R.id.menu_setting -> {
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
         }
     }
 

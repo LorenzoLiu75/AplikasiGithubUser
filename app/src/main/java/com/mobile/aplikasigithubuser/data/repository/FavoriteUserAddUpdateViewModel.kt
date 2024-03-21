@@ -11,10 +11,6 @@ class FavoriteUserAddUpdateViewModel(application: Application) : AndroidViewMode
         mFavoriteUserRepository.insert(favoriteUser)
     }
 
-    fun update(favoriteUser: FavoriteUser) {
-        mFavoriteUserRepository.update(favoriteUser)
-    }
-
     fun delete(favoriteUser: FavoriteUser) {
         mFavoriteUserRepository.delete(favoriteUser)
     }

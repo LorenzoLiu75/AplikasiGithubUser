@@ -21,7 +21,7 @@
         <activity
             android:name=".ui.main.DetailUserActivity"
             android:exported="false"
-            android:parentActivityName=".ui.main.MainActivity" />
+            android:parentActivityName=".ui.main.MainActivity"/>
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="true">

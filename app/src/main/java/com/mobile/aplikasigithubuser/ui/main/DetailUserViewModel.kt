@@ -33,8 +33,6 @@ class DetailUserViewModel(application: Application) : AndroidViewModel(applicati
 
     private val mFavoriteUserRepository: FavoriteUserRepository = FavoriteUserRepository(application)
 
-    fun getAllFavoriteUser(): LiveData<FavoriteUser> = mFavoriteUserRepository.getFavoriteUserByUsername()
-
     fun setUsername(username: String?) {
         _username.value = username
     }
