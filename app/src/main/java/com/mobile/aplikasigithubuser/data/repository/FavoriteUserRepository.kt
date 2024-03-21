@@ -31,4 +31,8 @@ class FavoriteUserRepository(application: Application) {
     fun update(favoriteUser: FavoriteUser) {
         executorService.execute { mFavoriteUserDao.update(favoriteUser)}
     }
+
+    fun checkIfUserIsFavorite(username: String): LiveData<Boolean> {
+        return mFavoriteUserDao.checkIfUserIsFavorite(username)
+    }
 }

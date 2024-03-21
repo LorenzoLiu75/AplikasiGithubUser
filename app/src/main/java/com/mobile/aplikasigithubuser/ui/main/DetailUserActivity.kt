@@ -3,9 +3,9 @@ package com.mobile.aplikasigithubuser.ui.main
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
@@ -15,12 +15,13 @@ import com.mobile.aplikasigithubuser.data.repository.FavoriteUserAddUpdateViewMo
 import com.mobile.aplikasigithubuser.data.response.DetailUserResponse
 import com.mobile.aplikasigithubuser.database.FavoriteUser
 import com.mobile.aplikasigithubuser.databinding.ActivityDetailUserBinding
+import com.mobile.aplikasigithubuser.helper.ViewModelFactory
 
 class DetailUserActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailUserBinding
-    private val userDetailViewModel by viewModels<DetailUserViewModel>()
-    private val favoriteUserAddUpdateViewModel by viewModels<FavoriteUserAddUpdateViewModel>()
+    private lateinit var userDetailViewModel: DetailUserViewModel
+    private lateinit var favoriteUserAddUpdateViewModel: FavoriteUserAddUpdateViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +48,12 @@ class DetailUserActivity : AppCompatActivity() {
             }
         }.attach()
 
+        val viewModelFactory = ViewModelFactory(application)
+
+        userDetailViewModel = ViewModelProvider(this, viewModelFactory)[DetailUserViewModel::class.java]
+
+        favoriteUserAddUpdateViewModel = ViewModelProvider(this, viewModelFactory)[FavoriteUserAddUpdateViewModel::class.java]
+
         if (userDetailViewModel.username.value == null) {
             userDetailViewModel.showDetailUser(username.orEmpty())
             userDetailViewModel.setUsername(username)
@@ -69,8 +76,14 @@ class DetailUserActivity : AppCompatActivity() {
             }
         }
 
+        if (username != null) {
+            checkIfUserIsFavorite(username)
+        }
+
         binding.fab.setOnClickListener {
-            saveFavoriteUserToDatabase()
+            if (username != null) {
+                checkIfUserIsFavorite(username)
+            }
         }
     }
 
@@ -99,6 +112,24 @@ class DetailUserActivity : AppCompatActivity() {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
+    private fun checkIfUserIsFavorite(username: String) {
+        userDetailViewModel.checkIfUserIsFavorite(username).observe(this) { isFavorite ->
+            if (isFavorite) {
+                binding.fab.setImageResource(R.drawable.favorite_filled)
+
+                binding.fab.setOnClickListener {
+                    deleteFavoriteUserFromDatabase(username)
+                }
+            } else {
+                binding.fab.setImageResource(R.drawable.favorite_border)
+
+                binding.fab.setOnClickListener {
+                    saveFavoriteUserToDatabase()
+                }
+            }
+        }
+    }
+
     private fun saveFavoriteUserToDatabase() {
         val username = intent.getStringExtra("username") ?: return
         val avatarUrl = intent.getStringExtra("avatarUrl") ?: return
@@ -107,6 +138,15 @@ class DetailUserActivity : AppCompatActivity() {
         favoriteUserAddUpdateViewModel.insert(favoriteUser)
 
         Toast.makeText(this, "Berhasil menambahkan user ke favorite", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun deleteFavoriteUserFromDatabase(username: String) {
+        val avatarUrl = intent.getStringExtra("avatarUrl") ?: return
+
+        val favoriteUser = FavoriteUser(username = username, avatarUrl = avatarUrl)
+        favoriteUserAddUpdateViewModel.delete(favoriteUser)
+
+        Toast.makeText(this, "Berhasil menghapus user dari favorite", Toast.LENGTH_SHORT).show()
     }
 
 }

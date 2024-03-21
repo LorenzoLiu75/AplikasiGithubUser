@@ -22,4 +22,6 @@ interface FavoriteUserDao {
 
     @Query("SELECT * FROM FavoriteUser WHERE username = :username")
     fun getFavoriteUserByUsername(username: String): LiveData<FavoriteUser>
+    @Query("SELECT EXISTS(SELECT 1 FROM FavoriteUser WHERE username = :username LIMIT 1)")
+    fun checkIfUserIsFavorite(username: String): LiveData<Boolean>
 }

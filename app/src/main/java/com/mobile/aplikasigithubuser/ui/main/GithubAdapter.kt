@@ -22,6 +22,7 @@ class GithubAdapter : ListAdapter<ItemsItem, GithubAdapter.MyViewHolder>(DIFF_CA
         holder.itemView.setOnClickListener {
             val intentDetail = Intent(holder.itemView.context, DetailUserActivity::class.java)
             intentDetail.putExtra("username", githubUser.login)
+            intentDetail.putExtra("avatarUrl", githubUser.avatarUrl)
             holder.itemView.context.startActivity(intentDetail)
         }
     }

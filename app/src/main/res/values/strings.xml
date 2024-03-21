@@ -11,4 +11,5 @@
     <string name="content_tab_following">my following here</string>
     <string name="content_tab_text">This is Tab %1$d</string>
     <string name="get_follow">get follow</string>
+    <string name="favorite">Favorite</string>
 </resources>

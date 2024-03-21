@@ -1,12 +1,18 @@
 package com.mobile.aplikasigithubuser.ui.main
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.ContextMenu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.AdapterView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mobile.aplikasigithubuser.R
 import com.mobile.aplikasigithubuser.databinding.ActivityMainBinding
 
 
@@ -55,6 +61,27 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onCreateContextMenu(menu: ContextMenu, v: View,
+                                     menuInfo: ContextMenu.ContextMenuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.item_menu, menu)
+    }
+
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
+        return when (item.itemId) {
+            R.id.menu_favorite -> {
+                startActivity(Intent(this, ListFavoriteActivity::class.java))
+                true
+            }
+
+            else -> super.onContextItemSelected(item)
+        }
+    }
+
 
     private fun showErrorDialog(errorMessage: String) {
         val builder = AlertDialog.Builder(this)
