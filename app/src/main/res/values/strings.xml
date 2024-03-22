@@ -13,4 +13,5 @@
     <string name="get_follow">get follow</string>
     <string name="favorite">Favorite</string>
     <string name="setting">setting</string>
+    <string name="dark_mode">Dark Mode</string>
 </resources>

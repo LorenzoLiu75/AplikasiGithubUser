@@ -1,6 +1,7 @@
 package com.mobile.aplikasigithubuser.ui.main
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -15,13 +16,14 @@ import com.mobile.aplikasigithubuser.data.repository.FavoriteUserAddUpdateViewMo
 import com.mobile.aplikasigithubuser.data.response.DetailUserResponse
 import com.mobile.aplikasigithubuser.database.FavoriteUser
 import com.mobile.aplikasigithubuser.databinding.ActivityDetailUserBinding
-import com.mobile.aplikasigithubuser.helper.ViewModelFactory
+import com.mobile.aplikasigithubuser.helper.FavoriteViewModelFactory
 
 class DetailUserActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailUserBinding
     private lateinit var userDetailViewModel: DetailUserViewModel
     private lateinit var favoriteUserAddUpdateViewModel: FavoriteUserAddUpdateViewModel
+    private lateinit var favoriteViewModel: FavoriteViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,11 +50,11 @@ class DetailUserActivity : AppCompatActivity() {
             }
         }.attach()
 
-        val viewModelFactory = ViewModelFactory(application)
+        val favoriteViewModelFactory = FavoriteViewModelFactory(application)
 
-        userDetailViewModel = ViewModelProvider(this, viewModelFactory)[DetailUserViewModel::class.java]
-
-        favoriteUserAddUpdateViewModel = ViewModelProvider(this, viewModelFactory)[FavoriteUserAddUpdateViewModel::class.java]
+        userDetailViewModel = ViewModelProvider(this, favoriteViewModelFactory)[DetailUserViewModel::class.java]
+        favoriteUserAddUpdateViewModel = ViewModelProvider(this, favoriteViewModelFactory)[FavoriteUserAddUpdateViewModel::class.java]
+        favoriteViewModel = ViewModelProvider(this, favoriteViewModelFactory)[FavoriteViewModel::class.java]
 
         if (userDetailViewModel.username.value == null) {
             userDetailViewModel.showDetailUser(username.orEmpty())
@@ -84,6 +86,16 @@ class DetailUserActivity : AppCompatActivity() {
             if (username != null) {
                 checkIfUserIsFavorite(username)
             }
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

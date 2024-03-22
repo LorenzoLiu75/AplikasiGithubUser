@@ -8,10 +8,14 @@ import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mobile.aplikasigithubuser.R
 import com.mobile.aplikasigithubuser.databinding.ActivityMainBinding
+import com.mobile.aplikasigithubuser.helper.SettingPreferences
+import com.mobile.aplikasigithubuser.helper.SettingViewModelFactory
+import com.mobile.aplikasigithubuser.helper.dataStore
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +23,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var githubAdapter: GithubAdapter
     private val mainViewModel by viewModels<MainViewModel>()
+    private val settingViewModel: SettingViewModel by viewModels {
+        SettingViewModelFactory(SettingPreferences.getInstance(application.dataStore))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +33,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
+
+        settingViewModel.getThemeSettings().observe(this) { isDarkModeActive ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
 
         with(binding) {
             searchView.setupWithSearchBar(searchBar)
@@ -54,11 +69,15 @@ class MainActivity : AppCompatActivity() {
                             )
                             true
                         }
-
                         R.id.menu_setting -> {
+                            startActivity(
+                                Intent(
+                                    this@MainActivity,
+                                    SettingLightDarkModeActivity::class.java
+                                )
+                            )
                             true
                         }
-
                         else -> {
                             false
                         }

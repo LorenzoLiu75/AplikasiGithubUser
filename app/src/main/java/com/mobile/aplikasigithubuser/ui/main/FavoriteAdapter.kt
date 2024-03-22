@@ -35,6 +35,7 @@ class FavoriteAdapter : ListAdapter<FavoriteUser, FavoriteAdapter.FavoriteViewHo
                 val favoriteUser = getItem(position)
                 val intent = Intent(v?.context, DetailUserActivity::class.java)
                 intent.putExtra("username", favoriteUser.username)
+                intent.putExtra("avatarUrl", favoriteUser.avatarUrl)
                 v?.context?.startActivity(intent)
             }
         }

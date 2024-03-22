@@ -8,7 +8,7 @@ import com.mobile.aplikasigithubuser.data.repository.FavoriteUserRepository
 import com.mobile.aplikasigithubuser.ui.main.DetailUserViewModel
 import com.mobile.aplikasigithubuser.ui.main.FavoriteViewModel
 
-class ViewModelFactory(private val mApplication: Application) : ViewModelProvider.Factory {
+class FavoriteViewModelFactory(private val mApplication: Application) : ViewModelProvider.Factory {
 
     private val favoriteUserRepository: FavoriteUserRepository by lazy {
         FavoriteUserRepository(mApplication)
@@ -28,15 +28,15 @@ class ViewModelFactory(private val mApplication: Application) : ViewModelProvide
 
     companion object {
         @Volatile
-        private var INSTANCE: ViewModelFactory? = null
+        private var INSTANCE: FavoriteViewModelFactory? = null
 
-        fun getInstance(application: Application): ViewModelFactory {
+        fun getInstance(application: Application): FavoriteViewModelFactory {
             if (INSTANCE == null) {
-                synchronized(ViewModelFactory::class.java) {
-                    INSTANCE = ViewModelFactory(application)
+                synchronized(FavoriteViewModelFactory::class.java) {
+                    INSTANCE = FavoriteViewModelFactory(application)
                 }
             }
-            return INSTANCE as ViewModelFactory
+            return INSTANCE as FavoriteViewModelFactory
         }
     }
 }
