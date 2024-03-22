@@ -4,12 +4,10 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.map
 import com.mobile.aplikasigithubuser.data.repository.FavoriteUserRepository
 import com.mobile.aplikasigithubuser.data.response.DetailUserResponse
 import com.mobile.aplikasigithubuser.data.response.ItemsItem
 import com.mobile.aplikasigithubuser.data.retrofit.ApiConfig
-import com.mobile.aplikasigithubuser.database.FavoriteUser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

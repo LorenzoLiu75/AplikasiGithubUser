@@ -2,11 +2,8 @@ package com.mobile.aplikasigithubuser.ui.main
 
 import android.os.Bundle
 import android.widget.CompoundButton
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.mobile.aplikasigithubuser.R
