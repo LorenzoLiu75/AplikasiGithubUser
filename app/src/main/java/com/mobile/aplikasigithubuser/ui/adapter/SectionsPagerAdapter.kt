@@ -1,9 +1,10 @@
-package com.mobile.aplikasigithubuser.ui.main
+package com.mobile.aplikasigithubuser.ui.adapter
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.mobile.aplikasigithubuser.ui.main.FollowFragment
 
 class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
     var username: String = ""

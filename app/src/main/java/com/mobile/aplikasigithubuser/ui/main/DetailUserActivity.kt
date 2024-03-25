@@ -17,6 +17,7 @@ import com.mobile.aplikasigithubuser.data.response.DetailUserResponse
 import com.mobile.aplikasigithubuser.database.FavoriteUser
 import com.mobile.aplikasigithubuser.databinding.ActivityDetailUserBinding
 import com.mobile.aplikasigithubuser.helper.FavoriteViewModelFactory
+import com.mobile.aplikasigithubuser.ui.adapter.SectionsPagerAdapter
 
 class DetailUserActivity : AppCompatActivity() {
 

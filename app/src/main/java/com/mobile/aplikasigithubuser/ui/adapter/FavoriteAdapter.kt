@@ -1,4 +1,4 @@
-package com.mobile.aplikasigithubuser.ui.main
+package com.mobile.aplikasigithubuser.ui.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mobile.aplikasigithubuser.database.FavoriteUser
 import com.mobile.aplikasigithubuser.databinding.ItemUsersBinding
+import com.mobile.aplikasigithubuser.ui.main.DetailUserActivity
 
 class FavoriteAdapter : ListAdapter<FavoriteUser, FavoriteAdapter.FavoriteViewHolder>(DIFF_CALLBACK) {
 

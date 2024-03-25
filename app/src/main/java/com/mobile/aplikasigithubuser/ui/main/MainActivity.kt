@@ -14,9 +14,11 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mobile.aplikasigithubuser.R
 import com.mobile.aplikasigithubuser.databinding.ActivityMainBinding
+import com.mobile.aplikasigithubuser.helper.EspressoIdlingResource
 import com.mobile.aplikasigithubuser.helper.SettingPreferences
 import com.mobile.aplikasigithubuser.helper.SettingViewModelFactory
 import com.mobile.aplikasigithubuser.helper.dataStore
+import com.mobile.aplikasigithubuser.ui.adapter.GithubAdapter
 
 
 class MainActivity : AppCompatActivity() {
@@ -51,6 +53,7 @@ class MainActivity : AppCompatActivity() {
                 .setOnEditorActionListener { _, actionId, _ ->
                     if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                         val query = searchView.text.toString()
+                        EspressoIdlingResource.increment()
                         mainViewModel.searchGithubUsers(query)
                         searchView.hide()
                         return@setOnEditorActionListener true
@@ -91,14 +94,23 @@ class MainActivity : AppCompatActivity() {
         setupRecyclerView()
 
         mainViewModel.githubUserList.observe(this) { githubUsers ->
+            if (!EspressoIdlingResource.idlingResource.isIdleNow){
+                EspressoIdlingResource.decrement()
+            }
             githubAdapter.submitList(githubUsers)
         }
 
         mainViewModel.isLoading.observe(this) {
+            if (!EspressoIdlingResource.idlingResource.isIdleNow){
+                EspressoIdlingResource.decrement()
+            }
             showLoading(it)
         }
 
         mainViewModel.errorText.observe(this) { errorMessage ->
+            if (!EspressoIdlingResource.idlingResource.isIdleNow){
+                EspressoIdlingResource.decrement()
+            }
             if (errorMessage != null) {
                 mainViewModel.setErrorText(null)
                 showErrorDialog(errorMessage)

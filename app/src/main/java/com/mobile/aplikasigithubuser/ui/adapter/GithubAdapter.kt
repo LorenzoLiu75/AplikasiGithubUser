@@ -1,4 +1,4 @@
-package com.mobile.aplikasigithubuser.ui.main
+package com.mobile.aplikasigithubuser.ui.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mobile.aplikasigithubuser.data.response.ItemsItem
 import com.mobile.aplikasigithubuser.databinding.ItemUsersBinding
+import com.mobile.aplikasigithubuser.ui.main.DetailUserActivity
 
 class GithubAdapter : ListAdapter<ItemsItem, GithubAdapter.MyViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {

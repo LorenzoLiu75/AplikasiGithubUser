@@ -67,6 +67,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
     implementation(libs.androidx.espresso.contrib)
+    implementation("com.android.support.test.espresso:espresso-idling-resource:3.0.2")
     ksp("androidx.room:room-compiler:2.6.1")
     androidTestImplementation("androidx.test:runner:1.5.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
